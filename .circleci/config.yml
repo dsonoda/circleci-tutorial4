@@ -20,6 +20,7 @@ jobs:
       - run:
           command: |
             sudo pip install pipenv
+            cd ~/app/app
             pipenv sync
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "~/app/app/Pipfile.lock" }}
