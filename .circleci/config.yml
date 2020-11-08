@@ -13,8 +13,8 @@ jobs:
           POSTGRES_DB: circle_test
     steps:
       - checkout
-      - python/install-packages
-          pkg-manager: pipenv
+      - python/install-packages:
+        pkg-manager: pipenv
       - run:
           name: Run django tests
           command: |
