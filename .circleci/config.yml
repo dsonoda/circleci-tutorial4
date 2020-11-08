@@ -20,7 +20,6 @@ jobs:
       - run:
           command: |
             sudo pip install pipenv
-            cd ~/app/app
             pipenv sync
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "~/app/app/Pipfile.lock" }}
@@ -30,7 +29,6 @@ jobs:
             - "/usr/local/lib/python3.6/site-packages"
       - run:
           command: |
-            cd ~/app/app
             pipenv run python manage.py test
       - store_test_results:
           path: test-results
