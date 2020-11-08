@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  python: circleci/python@1.0.0
 jobs:
   build:
     working_directory: ~/app
@@ -7,7 +9,7 @@ jobs:
         environment:
           PIPENV_VENV_IN_PROJECT: true
           DATABASE_URL: postgresql://root@localhost/circle_test?sslmode=disable
-      - image: circleci/postgres:9.6.2
+      - image: circleci/postgres:latest
         environment:
           POSTGRES_USER: root
           POSTGRES_DB: circle_test
@@ -17,11 +19,14 @@ jobs:
       - run: sudo chown -R circleci:circleci /usr/local/lib/python3.8/site-packages
       - restore_cache:
           key: deps9-{{ .Branch }}-{{ checksum "~/app/app/Pipfile.lock" }}
-      - run:
-          command: |
-            sudo pip install pipenv
-            cd ~/app/app
-            pipenv sync
+      - python/install-packages:
+          pkg-manager: pipenv
+          app-dir: ~/app/app
+      # - run:
+      #     command: |
+      #       sudo pip install pipenv
+      #       cd ~/app/app
+      #       pipenv sync
       - save_cache:
           key: deps9-{{ .Branch }}-{{ checksum "~/app/app/Pipfile.lock" }}
           paths:
@@ -30,7 +35,8 @@ jobs:
             - "/usr/local/lib/python3.6/site-packages"
       - run:
           command: |
-            pipenv run python ~/app/app/manage.py test
+            cd ~/app/app
+            pipenv run python manage.py test
       - store_test_results:
           path: test-results
       - store_artifacts:
