@@ -20,6 +20,10 @@ jobs:
           name: Run django tests
           command: |
             pipenv run python manage.py test
+          parameters:
+            app-dir:
+              default: ~/app
+              type: string
       - store_test_results:
           path: test-results
       - store_artifacts:
