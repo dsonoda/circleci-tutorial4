@@ -26,9 +26,6 @@ RUN apk update && \
     pip install pipenv && \
     pipenv install --dev --system
 
-# copy entrypoint shell file
-COPY ./entrypoint.sh $APP_HOME
-
 # copy project
 COPY ./app $APP_HOME
 
