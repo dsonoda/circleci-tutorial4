@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # 'health_check.contrib.s3boto3_storage',
     # 'health_check.contrib.rabbitmq',            # requires RabbitMQ broker
     # 'health_check.contrib.redis',               # required Redis broker
+    'hello.apps.HelloConfig',
 ]
 
 MIDDLEWARE = [
