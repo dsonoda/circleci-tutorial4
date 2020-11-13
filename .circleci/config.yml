@@ -30,7 +30,7 @@ jobs:
       - store_artifacts:
           path: test-results
           destination: tr1
-  build_image:
+  push_image:
     docker:
       - image: docker:18.09.0
     steps:
@@ -59,7 +59,7 @@ workflows:
   test:
     jobs:
       - build
-      - build_image:
+      - push_image:
           requires:
             - build
           filters:
