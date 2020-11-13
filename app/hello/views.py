@@ -2,5 +2,5 @@ from django.shortcuts import render
 
 
 def hello(request):
-    name = "daisuke"
+    name = "sonoda"
     return render(request, "hello.html", {"name": name})
